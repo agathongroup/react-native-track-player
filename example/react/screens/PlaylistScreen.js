@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import TrackPlayer, { Capability, State, usePlaybackState } from "react-native-track-player";
+import TrackPlayer, { usePlaybackState } from "react-native-track-player";
 
 import Player from "../components/Player";
 import playlistData from "../data/playlist.json";
@@ -14,15 +14,15 @@ export default function LandingScreen() {
     TrackPlayer.updateOptions({
       stopWithApp: true,
       capabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SkipToNext,
-        Capability.SkipToPrevious,
-        Capability.Stop
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE,
+        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        TrackPlayer.CAPABILITY_STOP
       ],
       compactCapabilities: [
-        Capability.Play,
-        Capability.Pause
+        TrackPlayer.CAPABILITY_PLAY,
+        TrackPlayer.CAPABILITY_PAUSE
       ]
     });
   }, []);
@@ -41,7 +41,7 @@ export default function LandingScreen() {
       });
       await TrackPlayer.play();
     } else {
-      if (playbackState === State.Paused) {
+      if (playbackState === TrackPlayer.STATE_PAUSED) {
         await TrackPlayer.play();
       } else {
         await TrackPlayer.pause();
@@ -73,15 +73,15 @@ LandingScreen.navigationOptions = {
 
 function getStateName(state) {
   switch (state) {
-    case State.None:
+    case TrackPlayer.STATE_NONE:
       return "None";
-    case State.Playing:
+    case TrackPlayer.STATE_PLAYING:
       return "Playing";
-    case State.Paused:
+    case TrackPlayer.STATE_PAUSED:
       return "Paused";
-    case State.Stopped:
+    case TrackPlayer.STATE_STOPPED:
       return "Stopped";
-    case State.Buffering:
+    case TrackPlayer.STATE_BUFFERING:
       return "Buffering";
   }
 }
