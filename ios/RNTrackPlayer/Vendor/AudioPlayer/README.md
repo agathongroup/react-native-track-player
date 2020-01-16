@@ -25,13 +25,13 @@ SwiftAudio is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SwiftAudio', '~> 0.9.2'
+pod 'SwiftAudio', '~> 0.11.1'
 ```
 
 ### Carthage
 SwiftAudio supports [Carthage](https://github.com/Carthage/Carthage). Add this to your Cartfile:
 ```ruby
-github "jorgenhenrichsen/SwiftAudio" ~> 0.9.2
+github "jorgenhenrichsen/SwiftAudio" ~> 0.11.1
 ```
 Then follow the rest of Carthage instructions on [adding a framework](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
@@ -138,8 +138,6 @@ The current info can be cleared with:
 ```
 
 ### Remote Commands
-**First** go to App Settings -> Capabilites -> Background Modes -> Check 'Remote notifications'
-
 To enable remote commands for the player you need to populate the RemoteCommands array for the player:
 ```swift
 audioPlayer.remoteCommands = [

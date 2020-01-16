@@ -30,7 +30,12 @@ class AVPlayerWrapperTests: XCTestCase {
         XCTAssert(wrapper.state == AVPlayerWrapperState.idle)
     }
     
-    func test_AVPlayerWrapper__state__when_loading_a_source__should_be_ready() {
+    func test_AVPlayerWrapper__state__when_loading_a_source__should_be_loading() {
+        wrapper.load(from: Source.url, playWhenReady: false)
+        XCTAssertEqual(wrapper.state, AVPlayerWrapperState.loading)
+    }
+    
+    func test_AVPlayerWrapper__state__when_loading_a_source__should_eventually_be_ready() {
         let expectation = XCTestExpectation()
         holder.stateUpdate = { state in
             if state == .ready {
@@ -99,7 +104,7 @@ class AVPlayerWrapperTests: XCTestCase {
             default: break
             }
         }
-        wrapper.load(from: LongSource.url, playWhenReady: true, initialTime: 4.0, headers: [:])
+        wrapper.load(from: LongSource.url, playWhenReady: true, initialTime: 4.0)
         wait(for: [expectation], timeout: 20.0)
     }
     
@@ -146,8 +151,7 @@ class AVPlayerWrapperTests: XCTestCase {
         holder.didSeekTo = { seconds in
             expectation.fulfill()
         }
-        
-        wrapper.load(from: LongSource.url, playWhenReady: false, initialTime: 4.0, headers: [:])
+        wrapper.load(from: LongSource.url, playWhenReady: false, initialTime: 4.0)
         wait(for: [expectation], timeout: 20.0)
     }
     
